@@ -84,3 +84,32 @@ def fourth_anagram?(string1, string2)
   hash.values.all? { |el| el == 0 }
 end
 
+def brut_sum?(arr, target)
+  i = 0
+  while i < arr.length - 1
+    j = i+1 
+    while j < arr.length
+      return true if arr[i] + arr[j] == target
+      j += 1
+    end
+    i += 1
+  end
+  false
+end
+
+def sort_sum?(arr,target)
+  sorted = arr.sort
+  sorted.each_with_index do |el,idx|
+    return true if !!arr.bsearch { |x| x == target - sorted.shift }  
+  end
+  false
+end
+
+def hash_sum?(arr, target)
+  hash = Hash.new(false)
+  arr.each do |x|
+    hash[x] = true
+    return true if !!hash[target - x]
+  end
+  false
+end
