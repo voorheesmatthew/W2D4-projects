@@ -99,8 +99,9 @@ end
 
 def sort_sum?(arr,target)
   sorted = arr.sort
-  sorted.each_with_index do |el,idx|
-    return true if !!arr.bsearch { |x| x == target - sorted.shift }  
+  # sorted.each do |el|
+  until sorted.empty?
+    return true if sorted.bsearch { |x| x == target - sorted.shift }  
   end
   false
 end
@@ -113,3 +114,17 @@ def hash_sum?(arr, target)
   end
   false
 end
+
+def naive_solution(array, window_size)
+  current_max_range = -1.0 / 0.0
+  array.each_with_index do |el, index|
+    start = index
+    finish = array[index + window_size]
+    break if finish.nil?
+    slice = array[index..finish]
+    current_range = slice.max - slice.min
+    current_max_range = current_range if current_range > current_max_range
+  end
+  current_max_range
+end
+    
